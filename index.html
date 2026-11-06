@@ -4,277 +4,257 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>AI Demo Days</title>
-<meta name="description" content="Partagez votre moment AI Demo Days sur LinkedIn.">
+<meta name="description" content="AI Demo Days, Foyer Group. Partagez le moment sur LinkedIn.">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#041d58">
+<meta name="theme-color" content="#05112f">
+<meta name="color-scheme" content="dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 75 58'%3E%3Cpath fill='%2320439d' d='M71.4189 45.0732C69.0541 50.0814 65.6083 54.4808 61.3516 58H13.5811C11.0135 55.8343 8.78366 53.3304 6.82422 50.5557L9.93262 45.0732H71.4189ZM61.4189 0C65.6081 3.51925 69.0541 7.9186 71.4189 12.9268H17.2295L1.68945 40.0654C0.608369 36.5462 0 32.8235 0 28.9658C0.0001102 17.3254 5.33778 6.90308 13.6484 0H61.4189ZM74.3916 22.6045C74.7294 24.7025 75 26.8008 75 29.0342C75 31.1997 74.7294 33.3651 74.3916 35.4629H15.4727L22.9053 22.6045H74.3916Z'/%3E%3C/svg%3E">
+<link rel="preload" as="image" href="hero.webp" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #041d58;
-    --primary: #2957c8;
-    --primary-hover: #20439d;
-    --primary-active: #173682;
-    --primary-100: #eaeefa;
-    --ink: #1a1d23;
-    --text: #3f485a;
-    --muted: #5d6b83;
-    --line: #e1e6ef;
-    --soft: #f8f9fc;
-    --done: #00856e;
-    --alert: #d04348;
-    --ease: cubic-bezier(.2, .8, .2, 1);
+    --night: #05112f;
+    --night-2: #0a1c48;
+    --line: rgb(143 174 240 / .28);
+    --sky: #8faef0;
+    --mist: #d3def3;
+    --white: #ffffff;
+    --yellow: #ffd60a;
+    --yellow-press: #e8c200;
+    --error: #ffb4a8;
+    --ease: cubic-bezier(.23, 1, .32, 1);
+    --gutter: 24px;
   }
   * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
+  html { background: var(--night); -webkit-text-size-adjust: 100%; }
   body {
     margin: 0;
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    color: var(--text);
-    font: 400 16px/1.5 Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--night);
+    color: var(--mist);
+    font: 400 16px/1.55 Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    overflow-x: hidden;
   }
-  button, a { -webkit-tap-highlight-color: transparent; }
-  :focus-visible { outline: 3px solid #f5b614; outline-offset: 2px; }
+  a, button { -webkit-tap-highlight-color: transparent; }
+  :focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }
 
-  .hero {
+  /* Affiche : logo et titre, puis la lune et le tandem qui sortent de la nuit */
+  .poster {
     position: relative;
-    overflow: hidden;
-    background: var(--navy);
-    color: #fff;
-    padding: max(8px, env(safe-area-inset-top)) 24px 24px;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: max(20px, env(safe-area-inset-top)) var(--gutter) 0;
+    z-index: 1;
   }
-  .bands {
-    position: absolute;
-    right: -64px;
-    bottom: -32px;
-    width: 220px;
-    height: auto;
-    fill: var(--primary);
-  }
-  .topbar {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-  }
-  .logo { display: block; width: 96px; height: auto; fill: #fff; }
-  .langs { display: flex; margin-right: -8px; }
-  .langs button {
-    min-width: 44px;
-    min-height: 44px;
-    border: 0;
-    background: none;
-    color: #ced9f3;
-    font: 500 14px/1 inherit;
-    font-family: inherit;
-    cursor: pointer;
-    text-decoration: none;
-    text-underline-offset: 5px;
-    text-decoration-thickness: 2px;
-  }
-  .langs button[aria-pressed="true"] { color: #fff; font-weight: 700; text-decoration: underline; }
+  .logo { display: block; height: 15px; width: auto; color: var(--white); }
   h1 {
-    position: relative;
-    margin: 0;
-    white-space: nowrap;
-    font-size: clamp(38px, 12vw, 76px);
-    font-weight: 800;
-    line-height: .98;
-    letter-spacing: -.035em;
+    margin: 28px 0 0;
+    font-family: "Space Grotesk", Inter, system-ui, sans-serif;
+    font-size: clamp(56px, 19.5vw, 112px);
+    font-weight: 700;
+    line-height: .92;
+    letter-spacing: -.045em;
+    color: var(--white);
   }
-  .when { position: relative; margin: 16px 0 0; font-size: 16px; font-weight: 500; }
+  h1 span { display: block; }
+  h1 .days { color: var(--yellow); }
+  .when {
+    margin: 16px 0 0;
+    font-family: "Space Mono", ui-monospace, monospace;
+    font-size: 13px;
+    letter-spacing: .02em;
+    color: var(--sky);
+  }
+  .art {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 640px;
+    height: clamp(280px, 48vh, 460px);
+    margin: -8px auto 0;
+    object-fit: cover;
+    object-position: 50% 80%;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 86%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 86%, transparent 100%);
+  }
+  /* La route : le pointillé jaune de la campagne */
+  .road {
+    height: 4px;
+    margin: 0 0 8px;
+    background: repeating-linear-gradient(90deg, var(--yellow) 0 28px, transparent 28px 56px);
+    background-size: 56px 4px;
+  }
 
   main {
-    flex: 1;
-    width: 100%;
     max-width: 640px;
     margin: 0 auto;
-    padding: 24px 24px 16px;
+    padding: 24px var(--gutter) max(32px, env(safe-area-inset-bottom));
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
   }
-  .post {
-    margin: 0;
-    color: var(--ink);
-    font-size: 16px;
-    line-height: 1.55;
-    white-space: pre-line;
-    -webkit-user-select: text;
-    user-select: text;
-    outline: 0;
+  .share h2 {
+    margin: 0 0 12px;
+    font-family: "Space Grotesk", Inter, system-ui, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    color: var(--white);
   }
-  .how { margin: 24px 0 0; color: var(--muted); font-size: 14px; }
-
-  .actions {
-    position: sticky;
-    bottom: 0;
-    width: 100%;
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 12px 24px max(16px, env(safe-area-inset-bottom));
-    background: #fff;
-    border-top: 1px solid var(--line);
-  }
-  .status { margin: 0 0 8px; font-size: 14px; font-weight: 600; color: var(--done); }
-  .status:empty { display: none; }
-  .status.error { color: var(--alert); }
   .cta {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 56px;
-    padding: 12px 16px;
-    border-radius: 4px;
-    background: var(--primary);
-    color: #fff;
-    font-size: 17px;
-    font-weight: 600;
+    min-height: 60px;
+    padding: 14px 24px;
+    border-radius: 999px;
+    background: var(--yellow);
+    color: var(--night);
+    font-family: "Space Grotesk", Inter, system-ui, sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -.01em;
     text-align: center;
     text-decoration: none;
-    transition: background-color 120ms var(--ease), transform 120ms var(--ease);
+    transition: transform 140ms var(--ease), background-color 140ms var(--ease);
   }
-  .cta:hover { background: var(--primary-hover); }
-  .cta:active { background: var(--primary-active); transform: scale(.98); }
-  .copy-only {
-    display: block;
-    width: 100%;
+  .cta:hover { background: #ffe040; }
+  .cta:active { background: var(--yellow-press); transform: scale(.97); }
+  .links { display: grid; grid-template-columns: 1fr 1fr; margin-top: 4px; }
+  .links a, .links button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     min-height: 44px;
-    margin-top: 4px;
+    padding: 0 8px;
     border: 0;
     background: none;
-    color: var(--primary-hover);
+    color: var(--mist);
     font: inherit;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-color: var(--sky);
+    text-underline-offset: 4px;
     cursor: pointer;
-    transition: transform 120ms var(--ease);
+    transition: transform 140ms var(--ease);
   }
-  .copy-only:active { transform: scale(.98); }
-  .js-only { display: none; }
-  html.js .js-only { display: block; }
-  html.js .langs { display: flex; }
-  .langs { visibility: hidden; }
-  html.js .langs { visibility: visible; }
+  .links a:active, .links button:active { transform: scale(.97); }
+  .status { margin: 8px 0 0; font-size: 15px; font-weight: 600; color: var(--yellow); }
+  .status:empty { display: none; }
+  .status.error { color: var(--error); }
+  .post {
+    margin: 16px 0 0;
+    padding-left: 16px;
+    border-left: 2px solid var(--line);
+    color: var(--white);
+    font-size: 15px;
+    line-height: 1.6;
+    white-space: pre-line;
+    -webkit-user-select: text;
+    user-select: text;
+  }
+  .hint { margin: 12px 0 0; color: var(--sky); font-size: 13px; line-height: 1.5; }
 
-  @media (min-width: 720px) {
-    .hero { padding-left: max(24px, calc(50vw - 296px)); padding-right: max(24px, calc(50vw - 296px)); }
-    .bands { right: 0; width: 380px; }
-    h1 { font-size: 88px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .road { animation: ride 900ms linear infinite; }
+    h1 span, .when, .art { animation: rise 620ms var(--ease) both; }
+    h1 .days { animation-delay: 70ms; }
+    .when { animation-delay: 130ms; }
+    .art { animation: moon 900ms var(--ease) both; }
+    @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    @keyframes moon { from { opacity: 0; transform: translateX(24px) scale(1.04); } to { opacity: 1; transform: none; } }
+    @keyframes ride { to { background-position: -56px 0; } }
   }
   @media (prefers-reduced-motion: reduce) {
-    .cta, .copy-only { transition: none; }
-    .cta:active, .copy-only:active { transform: none; }
+    .cta, .links a, .links button { transition: none; }
+    .cta:active, .links a:active, .links button:active { transform: none; }
   }
 </style>
-<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
-<header class="hero">
-  <svg class="bands" viewBox="0 0 75 58" aria-hidden="true"><path d="M71.4189 45.0732C69.0541 50.0814 65.6083 54.4808 61.3516 58H13.5811C11.0135 55.8343 8.78366 53.3304 6.82422 50.5557L9.93262 45.0732H71.4189ZM61.4189 0C65.6081 3.51925 69.0541 7.9186 71.4189 12.9268H17.2295L1.68945 40.0654C0.608369 36.5462 0 32.8235 0 28.9658C0.0001102 17.3254 5.33778 6.90308 13.6484 0H61.4189ZM74.3916 22.6045C74.7294 24.7025 75 26.8008 75 29.0342C75 31.1997 74.7294 33.3651 74.3916 35.4629H15.4727L22.9053 22.6045H74.3916Z"/></svg>
-  <div class="topbar">
-    <svg class="logo" viewBox="0 7 120 33" role="img" aria-label="Foyer"><g transform="translate(0 7)"><path d="M6.70928769,15.6032782 L31.7382331,15.6032782 C31.9060718,14.6478307 31.9936277,13.6802351 32,12.7104446 C31.9922988,11.744024 31.9047507,10.7798504 31.7382331,9.82758621 L9.86055877,9.82758621 L6.70928769,15.6032782 Z M29.7749811,19.2143327 L4.2929776,19.2143327 L3.03448276,21.6682536 C3.80701357,22.8935499 4.73778456,24.0136083 5.80317141,25 L25.6068462,25 C27.3936118,23.3891695 28.8143859,21.4204343 29.7749811,19.224308 L29.7749811,19.2143327 Z M7.36506435,6.37983598 L30.4672424,6.37983598 C29.4353003,4.28713914 27.9496994,2.4495087 26.1180063,1 L5.80817844,1 C0.802023839,4.97010952 -1.21781365,11.6162529 0.735743685,17.6905154 L7.36506435,6.37983598 Z"/><path d="M110.776007,8.84046871 C111.564657,7.90838325 113.260916,6.96014296 115.273907,6.94790444 L115.278802,6.94790444 C115.659665,6.94251949 115.975908,6.96748607 116.27257,7.00224346 C116.100741,7.54808131 115.249919,10.2532831 115.082497,10.7883511 C114.661002,10.6057524 114.208177,10.5181246 113.684858,10.5181246 C111.969507,10.5181246 110.234086,11.8007212 110.234086,14.2606631 L110.234086,25.1906379 L106.261953,25.1906379 L106.261953,7.25680461 L110.234086,7.25680461 L110.234086,9.48519378 L110.776007,8.84046871 Z M103.6504,17.3166208 L91.9836664,17.3166208 L91.9836664,17.6240524 C91.9836664,20.3326809 93.7034229,22.0818098 96.3714196,22.0818098 C98.4206368,22.0818098 99.4829401,21.5080681 100.594197,20.4487021 C100.924637,20.7762048 102.622854,22.427915 102.979729,22.7759785 C101.256546,24.4384586 99.5617562,25.4028538 96.3356831,25.4028538 C90.8180701,25.4028538 88.0218137,22.2976972 88.0218137,16.1603257 C88.0218137,10.477248 91.0163341,6.94765967 95.8343934,6.94765967 C100.581469,6.94765967 103.6504,10.3250008 103.6504,15.5474208 L103.6504,17.3166208 Z M91.9694698,14.7480009 L99.6993171,14.7480009 L99.6846309,14.4263726 C99.6498735,13.5652706 99.5367896,13.0336294 99.2362116,12.3169418 C98.6252648,10.9643409 97.3867269,10.1982098 95.8343934,10.1982098 C94.2820599,10.1982098 93.0449906,10.9682573 92.4418765,12.3110674 C92.1368927,13.0336294 92.0223402,13.5633124 91.9836664,14.4263726 L91.9694698,14.7480009 Z M87.8417117,7.25714729 C87.5465187,8.05167181 80.0168935,28.3940452 80.0154249,28.4013883 C79.6071479,29.4725033 79.1978919,30.1715674 78.6926859,30.6767734 C77.7816507,31.5824237 76.5426233,32.0166462 74.9007038,31.9995123 L73.3841068,31.9995123 L73.3841068,28.4591541 L74.1482798,28.4591541 C75.6418684,28.4591541 76.2777818,28.0038813 76.7668329,26.5793179 L77.5892613,24.1942757 C77.5892613,24.1942757 71.6256767,8.0443287 71.3344,7.25714729 L75.34178,7.25714729 C75.486684,7.64339488 79.6654033,19.1407473 79.6654033,19.1407473 C79.6654033,19.1407473 83.6747414,7.65416478 83.8162187,7.25714729 L87.8417117,7.25714729 Z M68.6788376,9.13903957 C70.3736274,10.9097082 70.7040674,13.0563441 70.7040674,16.1605215 C70.7040674,19.8027042 70.175853,21.6497412 68.6788376,23.2113759 C67.9092797,24.030867 66.1577031,25.4030496 63.1049274,25.4030496 C60.2376877,25.4030496 58.5110777,24.2124866 57.5662642,23.2113759 C56.0712069,21.6497412 55.5395658,19.8027042 55.5395658,16.1605215 C55.5395658,12.5393891 56.0712069,10.6996953 57.5662642,9.14246635 C58.5110777,8.1393975 60.2362191,6.94785549 63.1049274,6.94785549 C66.1611299,6.94785549 67.9092797,8.32150663 68.6788376,9.13903957 Z M65.5080826,20.9217942 C66.5811558,19.8433361 66.6697627,18.0545544 66.6697627,16.1605215 C66.6697627,14.2836226 66.5811558,12.5061004 65.5080826,11.4291109 C64.9005626,10.8255072 64.0918414,10.5180757 63.1049274,10.5180757 C62.124867,10.5180757 61.355309,10.8181641 60.7424041,11.4291109 C59.663946,12.5061004 59.5758287,14.2836226 59.5758287,16.1605215 C59.5758287,18.0545544 59.663946,19.8433361 60.7424041,20.9217942 C61.355309,21.5346991 62.1287833,21.8328294 63.1049274,21.8328294 C64.0918414,21.8328294 64.8986045,21.5283351 65.5080826,20.9217942 Z M56.302417,0.293577982 L56.302417,4.14968992 L47.1019895,4.14968992 L47.1019895,10.8642299 L53.2055827,10.8642299 L53.2055827,14.7178941 L47.1019895,14.7178941 L47.1019895,25.1906379 L42.7431193,25.1906379 L42.7431193,0.293577982 L56.302417,0.293577982 Z"/></g></svg>
-    <div class="langs" role="group" aria-label="Langue / Language">
-      <button type="button" data-lang="fr" aria-pressed="true" lang="fr">FR</button>
-      <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
-    </div>
-  </div>
-  <h1>AI Demo Days</h1>
-  <p class="when" id="when">9 et 10 novembre, chez Foyer</p>
+<header class="poster">
+  <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 143 15" fill="currentColor" role="img" aria-label="Foyer Group"><title>Foyer Group</title><path d="M89.45 9.33H91.24V10.32C90.51 10.9 89.61 11.22 88.68 11.24C87.68 11.25 86.72 10.85 86.03 10.12C85.34 9.39 84.99 8.41 85.06 7.41C85 6.42 85.37 5.44 86.09 4.75C86.81 4.06 87.8 3.72 88.79 3.83C89.93 3.85 91.03 4.26 91.91 4.99L93.4 2.68C92.05 1.52 90.31 0.920003 88.54 1C86.79 0.940003 85.09 1.6 83.84 2.83C82.59 4.06 81.9 5.75 81.93 7.5C81.84 9.19 82.45 10.85 83.61 12.08C84.77 13.31 86.39 14.01 88.09 14.02C89.29 14.05 90.46 13.66 91.41 12.93V13.84H93.99V6.7H89.47V9.31L89.45 9.33Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M39.67 1C37.93 0.940003 36.24 1.6 34.99 2.81C33.74 4.03 33.05 5.7 33.06 7.45C33.06 11.1 36.02 14.06 39.67 14.06C43.32 14.06 46.28 11.1 46.28 7.45C46.3 5.71 45.6 4.03 44.35 2.81C43.1 1.6 41.41 0.950003 39.67 1ZM42.11 9.97C41.47 10.68 40.57 11.1 39.61 11.14C38.65 11.1 37.75 10.68 37.11 9.96C36.47 9.25 36.14 8.31 36.2 7.35C36.13 6.09 36.77 4.89 37.85 4.24C38.93 3.59 40.29 3.59 41.37 4.24C42.45 4.89 43.09 6.09 43.02 7.35C43.08 8.31 42.75 9.25 42.11 9.96V9.97Z"></path><path d="M27.66 13.86H24.58V1.22H32.32V3.87H27.66V6.52H31.51V9.17H27.66V13.86Z"></path><path d="M51.95 4.25C51.54 5.07 51.19 6.07 51.19 6.07C51.19 6.07 50.83 5.12 50.43 4.25L49 1.21H45.49L49.66 8.68V13.86H52.72V8.68L56.87 1.22H53.36L51.95 4.26V4.25Z"></path><path d="M64.92 8.82H61.07V11.2H66.14V13.86H58.02V1.22H65.96V3.87H61.07V6.17H64.92V8.82Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M74.95 8.63C76.16 7.91 76.89 6.59 76.85 5.18C76.96 3.58 76.01 2.09 74.52 1.51C73.73 1.25 72.89 1.15 72.06 1.21H67.66V13.86H70.76V9.6H72.21L74.45 13.86H77.87L75.43 9.39C75.29 9.13 75.13 8.87 74.95 8.63ZM73.27 6.55C72.96 6.85 72.53 7 72.1 6.95H70.76V3.87H71.8C73.35 3.87 73.71 4.4 73.71 5.39C73.75 5.82 73.59 6.25 73.27 6.55Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M105.2 5.18C105.24 6.59 104.51 7.91 103.3 8.63C103.48 8.87 103.64 9.13 103.78 9.39L106.24 13.81H102.8L100.56 9.55H99.11V13.81H96.01V1.21H100.41C101.24 1.15 102.08 1.25 102.87 1.51C104.36 2.09 105.31 3.58 105.2 5.18ZM100.44 6.95C100.87 7 101.3 6.85 101.61 6.55C101.93 6.25 102.08 5.82 102.05 5.39C102.05 4.4 101.69 3.87 100.14 3.87H99.1V6.95H100.44Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M113.06 1C111.32 0.940003 109.63 1.6 108.38 2.81C107.13 4.03 106.44 5.7 106.45 7.45C106.45 11.1 109.41 14.06 113.06 14.06C116.71 14.06 119.67 11.1 119.67 7.45C119.69 5.71 118.99 4.03 117.74 2.81C116.49 1.59 114.8 0.940003 113.06 1ZM115.54 10.02C114.9 10.73 114 11.15 113.04 11.19C112.08 11.15 111.18 10.73 110.54 10.01C109.9 9.29 109.57 8.36 109.63 7.4C109.56 6.14 110.2 4.94 111.28 4.29C112.36 3.64 113.72 3.64 114.8 4.29C115.88 4.94 116.52 6.14 116.45 7.4C116.51 8.36 116.18 9.3 115.54 10.01V10.02Z"></path><path d="M126.53 11.4C127.74 11.4 128.72 10.42 128.72 9.21V1.22H131.82V9.21C131.82 12.06 129.74 14.08 126.55 14.08C123.36 14.08 121.24 12.09 121.24 9.21V1.22H124.34V9.21C124.34 10.42 125.32 11.4 126.53 11.4Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M138.79 1.22H133.54V13.87H136.64V9.96H138.79C141.09 9.8 142.87 7.9 142.87 5.59C142.87 3.28 141.09 1.38 138.79 1.22ZM139.31 6.85C138.98 7.19 138.51 7.3 138.06 7.3H136.63V3.86H137.74C139.4 3.86 139.78 4.45 139.78 5.56C139.78 6.04 139.65 6.52 139.31 6.86V6.85Z"></path><path d="M5.06 6.08H16.43C16.51 6.56 16.56 7.04 16.56 7.53C16.56 8.02 16.52 8.51 16.43 8.99H3.42L5.06 6.08Z"></path><path d="M1.52 12.4C1.94 13.02 2.45 13.59 3.02 14.08H13.55C14.51 13.29 15.28 12.29 15.82 11.17H2.21L1.53 12.41L1.52 12.4Z"></path><path d="M13.55 1C14.4972 1.78765 15.2455 2.78405 15.7654 3.9H3.82L0.38 10.03C0.13 9.22 0 8.38 0 7.53C0 5.02 1.09 2.63 3 1H13.55Z"></path></svg>
+  <h1 aria-label="AI Demo Days"><span>AI Demo</span><span class="days">Days</span></h1>
+  <p class="when" id="when">9 et 10 novembre, chez Foyer Group</p>
 </header>
+<img class="art" src="hero.webp" alt="" width="930" height="1015" fetchpriority="high">
+<div class="road" aria-hidden="true"></div>
 
-<main>
-  <p class="post" id="post-fr" lang="fr" tabindex="-1">Les AI Demo Days : Deux journées pour explorer l'IA autrement chez @Foyer Group 💡
+<main id="shares">
+  <section class="share" id="share-fr" lang="fr" data-lang="fr" aria-labelledby="title-fr">
+    <h2 id="title-fr">Partagez le moment</h2>
+    <a class="cta" href="https://www.linkedin.com/feed/?shareActive=true" data-action="share">Partager sur LinkedIn</a>
+    <div class="links">
+      <button type="button" data-action="copy">Copier le texte</button>
+      <a href="https://www.linkedin.com/feed/?shareActive=true" data-action="open">Ouvrir LinkedIn</a>
+    </div>
+    <p class="status" role="status" aria-live="polite"></p>
+    <p class="post">Les AI Demo Days : Deux journées pour explorer l'IA autrement chez @Foyer Group 💡
 Des démos, des découvertes, des échanges entre collègues et surtout plein d'idées sur ce que l'intelligence artificielle peut apporter à nos métiers.
 Une occasion de sortir du quotidien, de découvrir ce qui se fait ailleurs dans le Groupe et de tester de nouvelles choses !
 Bravo et merci à toutes les équipes qui ont donné vie à ces AI Demo Days. Une belle énergie collective.
 #AIDD26 #IntelligenceArtificielle #PresentForTheFuture</p>
-  <p class="post" id="post-en" lang="en" tabindex="-1">AI Demo Days: Two days to explore AI in a different way at @Foyer Group 💡
+    <p class="hint">Ajoutez votre photo. Dans LinkedIn, retapez @Foyer Group pour activer la mention.</p>
+  </section>
+
+  <section class="share" id="share-en" lang="en" data-lang="en" aria-labelledby="title-en">
+    <h2 id="title-en">Share the moment</h2>
+    <a class="cta" href="https://www.linkedin.com/feed/?shareActive=true" data-action="share">Share on LinkedIn</a>
+    <div class="links">
+      <button type="button" data-action="copy">Copy the text</button>
+      <a href="https://www.linkedin.com/feed/?shareActive=true" data-action="open">Open LinkedIn</a>
+    </div>
+    <p class="status" role="status" aria-live="polite"></p>
+    <p class="post">AI Demo Days: Two days to explore AI in a different way at @Foyer Group 💡
 Demos, discoveries, conversations with colleagues and, above all, plenty of ideas about what artificial intelligence can bring to our day-to-day work.
 A chance to step away from the daily routine, discover what’s happening across the Group and try out new things!
 A big thank you and well done to all the teams who brought these AI Demo Days to life. A great example of collective energy.
 #AIDD26 #ArtificialIntelligence #PresentForTheFuture</p>
-  <p class="how" id="how">Le bouton copie ce texte et ouvre LinkedIn. Collez-le dans un nouveau post, ajoutez votre photo, retapez @Foyer Group pour activer la mention, puis publiez.</p>
+    <p class="hint">Add your photo. In LinkedIn, retype @Foyer Group to activate the mention.</p>
+  </section>
 </main>
-
-<div class="actions">
-  <p class="status" id="status" role="status" aria-live="polite"></p>
-  <a class="cta" id="cta" href="https://www.linkedin.com/feed/?shareActive=true">Copier et ouvrir LinkedIn</a>
-  <button class="copy-only js-only" id="copy-only" type="button">Copier seulement</button>
-</div>
 
 <script>
 (function () {
-  var STRINGS = {
+  var COPY = {
     fr: {
-      when: '9 et 10 novembre, chez Foyer',
-      how: 'Le bouton copie ce texte et ouvre LinkedIn. Collez-le dans un nouveau post, ajoutez votre photo, retapez @Foyer Group pour activer la mention, puis publiez.',
-      cta: 'Copier et ouvrir LinkedIn',
-      copyOnly: 'Copier seulement',
-      copied: 'Texte copié. Collez-le dans votre post LinkedIn.',
-      failed: 'Copie automatique bloquée par ce navigateur. Le texte est sélectionné : copiez-le, puis touchez à nouveau le bouton.',
-      title: 'AI Demo Days'
+      when: '9 et 10 novembre, chez Foyer Group',
+      copied: 'Texte copié.',
+      shared: 'Texte copié. Choisissez LinkedIn. Si le post est vide, collez le texte.',
+      opened: 'Texte copié. Dans LinkedIn, touchez Publier, puis collez.',
+      failed: "Copie bloquée par ce navigateur. Sélectionnez le texte ci-dessous, puis copiez-le."
     },
     en: {
-      when: '9 and 10 November, at Foyer',
-      how: 'The button copies this text and opens LinkedIn. Paste it into a new post, add your photo, retype @Foyer Group to activate the mention, then publish.',
-      cta: 'Copy and open LinkedIn',
-      copyOnly: 'Copy only',
-      copied: 'Text copied. Paste it into your LinkedIn post.',
-      failed: 'This browser blocked automatic copying. The text is selected: copy it, then tap the button again.',
-      title: 'AI Demo Days'
+      when: '9 and 10 November, at Foyer Group',
+      copied: 'Text copied.',
+      shared: 'Text copied. Choose LinkedIn. If the post is empty, paste the text.',
+      opened: 'Text copied. In LinkedIn, tap Post, then paste.',
+      failed: 'This browser blocked copying. Select the text below, then copy it.'
     }
   };
-
-  var $ = function (id) { return document.getElementById(id); };
-  var statusEl = $('status');
-  var cta = $('cta');
-  var lang = 'fr';
-  var manualFallbackShown = false;
 
   function detectLang() {
     var forced = new URLSearchParams(location.search).get('lang');
     if (forced === 'fr' || forced === 'en') return forced;
-    try {
-      var saved = localStorage.getItem('aidd-lang');
-      if (saved === 'fr' || saved === 'en') return saved;
-    } catch (e) { /* stockage bloqué : la langue du téléphone suffit */ }
     var first = (navigator.languages && navigator.languages[0]) || navigator.language || '';
     return first.toLowerCase().indexOf('fr') === 0 ? 'fr' : 'en';
   }
 
-  function setStatus(message, isError) {
-    statusEl.textContent = message;
-    statusEl.classList.toggle('error', Boolean(isError));
+  // La langue du téléphone passe en premier, l'autre reste juste en dessous.
+  var lang = detectLang();
+  document.documentElement.lang = lang;
+  document.getElementById('when').textContent = COPY[lang].when;
+  if (lang === 'en') {
+    var main = document.getElementById('shares');
+    main.insertBefore(document.getElementById('share-en'), main.firstChild);
   }
 
-  function applyLang(next) {
-    lang = next;
-    var s = STRINGS[lang];
-    document.documentElement.lang = lang;
-    $('post-fr').hidden = lang !== 'fr';
-    $('post-en').hidden = lang !== 'en';
-    $('when').textContent = s.when;
-    $('how').textContent = s.how;
-    cta.textContent = s.cta;
-    $('copy-only').textContent = s.copyOnly;
-    document.querySelectorAll('[data-lang]').forEach(function (b) {
-      b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
-    });
-    setStatus('');
-    manualFallbackShown = false;
-  }
-
-  function currentText() {
-    return $('post-' + lang).textContent.trim();
-  }
-
-  // Synchrone, donc le résultat est connu avant de quitter la page vers LinkedIn.
-  // navigator.clipboard est asynchrone : l'app LinkedIn peut prendre le focus avant la fin.
+  // Synchrone : le résultat est connu avant que l'app LinkedIn prenne le focus.
   function copySync(text) {
     var area = document.createElement('textarea');
     area.value = text;
@@ -290,8 +270,7 @@ A big thank you and well done to all the teams who brought these AI Demo Days to
     return ok;
   }
 
-  function selectPost() {
-    var el = $('post-' + lang);
+  function selectText(el) {
     var range = document.createRange();
     range.selectNodeContents(el);
     var selection = window.getSelection();
@@ -299,48 +278,50 @@ A big thank you and well done to all the teams who brought these AI Demo Days to
     selection.addRange(range);
   }
 
-  function copyAsync(text) {
-    if (!navigator.clipboard || !navigator.clipboard.writeText) return Promise.reject(new Error('unavailable'));
-    return navigator.clipboard.writeText(text);
-  }
+  // Aucun lien documenté n'ouvre la rédaction de l'app LinkedIn avec le texte :
+  // sur téléphone, le menu de partage natif est donc le chemin principal.
+  var canShare = typeof navigator.share === 'function' && matchMedia('(pointer: coarse)').matches;
 
-  function showManualFallback() {
-    selectPost();
-    setStatus(STRINGS[lang].failed, true);
-    manualFallbackShown = true;
-  }
+  document.querySelectorAll('.share').forEach(function (section) {
+    var strings = COPY[section.dataset.lang];
+    var post = section.querySelector('.post');
+    var status = section.querySelector('.status');
+    var text = post.textContent.trim();
 
-  cta.addEventListener('click', function (event) {
-    // Après l'échec de la copie, le second appui ouvre LinkedIn sans rien bloquer.
-    if (manualFallbackShown) return;
-    var text = currentText();
-    if (copySync(text)) {
-      setStatus(STRINGS[lang].copied);
-      return; // le lien natif part : c'est lui qui ouvre l'app LinkedIn sur iOS et Android
+    function say(message, isError) {
+      status.textContent = message;
+      status.classList.toggle('error', Boolean(isError));
     }
-    event.preventDefault();
-    copyAsync(text).then(function () {
-      setStatus(STRINGS[lang].copied);
-      location.href = cta.href;
-    }).catch(showManualFallback);
-  });
+    function copied(message) {
+      if (copySync(text)) { say(message); return true; }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { say(message); }, function () {
+          selectText(post); say(strings.failed, true);
+        });
+        return true;
+      }
+      selectText(post);
+      say(strings.failed, true);
+      return false;
+    }
 
-  $('copy-only').addEventListener('click', function () {
-    var text = currentText();
-    if (copySync(text)) { setStatus(STRINGS[lang].copied); return; }
-    copyAsync(text).then(function () {
-      setStatus(STRINGS[lang].copied);
-    }).catch(showManualFallback);
-  });
-
-  document.querySelectorAll('[data-lang]').forEach(function (button) {
-    button.addEventListener('click', function () {
-      applyLang(button.dataset.lang);
-      try { localStorage.setItem('aidd-lang', lang); } catch (e) { /* sans importance */ }
+    section.querySelector('[data-action="copy"]').addEventListener('click', function () {
+      copied(strings.copied);
+    });
+    section.querySelector('[data-action="open"]').addEventListener('click', function () {
+      copied(strings.opened); // le lien natif part ensuite, c'est lui qui ouvre l'app
+    });
+    section.querySelector('[data-action="share"]').addEventListener('click', function (event) {
+      if (!canShare) { copied(strings.opened); return; }
+      event.preventDefault();
+      copied(strings.shared);
+      navigator.share({ text: text }).catch(function (error) {
+        if (error && error.name === 'AbortError') return; // la personne a fermé le menu
+        say(strings.opened);
+        location.href = event.currentTarget ? event.currentTarget.href : 'https://www.linkedin.com/feed/?shareActive=true';
+      });
     });
   });
-
-  applyLang(detectLang());
 })();
 </script>
 </body>
