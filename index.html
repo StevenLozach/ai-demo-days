@@ -239,14 +239,18 @@ A big thank you and well done to all the teams who brought these AI Demo Days to
     fr: {
       when: '9 et 10 novembre, chez Foyer Group',
       copied: 'Texte copié.',
+      iosLead: 'Le texte est copié, puis LinkedIn s\'ouvre. Touchez Publier, puis collez.',
+      iosDone: 'Texte copié. Dans LinkedIn, touchez Publier, puis collez.',
       shared: 'Texte copié. Choisissez LinkedIn. Si le post est vide, collez le texte.',
-      failed: 'Copie bloquée par ce navigateur. Le texte est sélectionné : copiez-le.'
+      failed: 'Copie bloquée par ce navigateur. Le texte est sélectionné : copiez-le, puis touchez à nouveau le bouton.'
     },
     en: {
       when: '9 and 10 November, at Foyer Group',
       copied: 'Text copied.',
+      iosLead: 'The text gets copied, then LinkedIn opens. Tap Post, then paste.',
+      iosDone: 'Text copied. In LinkedIn, tap Post, then paste.',
       shared: 'Text copied. Choose LinkedIn. If the post is empty, paste the text.',
-      failed: 'This browser blocked copying. The text is selected: copy it.'
+      failed: 'This browser blocked copying. The text is selected: copy it, then tap the button again.'
     }
   };
 
@@ -293,8 +297,9 @@ A big thank you and well done to all the teams who brought these AI Demo Days to
     selection.addRange(range);
   }
 
-  // Le bouton principal reste un simple lien, sans script : testé sur téléphone, c'est ce qui ouvre le post rempli.
+  // Hors iPhone, le bouton principal reste un simple lien, sans script : testé sur Android, il ouvre le post rempli.
   // Le menu de partage natif reste une option sur téléphone.
+  var isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   var canShare = typeof navigator.share === 'function' && matchMedia('(pointer: coarse)').matches;
 
   document.querySelectorAll('.share').forEach(function (section) {
@@ -323,6 +328,23 @@ A big thank you and well done to all the teams who brought these AI Demo Days to
     section.querySelector('[data-action="copy"]').addEventListener('click', function () {
       copied(strings.copied);
     });
+    // Sur iPhone, le même lien pré-rempli a marché puis cessé de marcher : on ne s'y fie pas.
+    // On copie le texte et on ouvre LinkedIn, un chemin déjà confirmé sur iPhone. Android garde le lien seul.
+    if (isIos) {
+      var cta = section.querySelector('.cta');
+      var manualCopyShown = false;
+      cta.href = 'https://www.linkedin.com/feed/';
+      section.querySelector('.lead').textContent = strings.iosLead;
+      cta.addEventListener('click', function (event) {
+        if (manualCopyShown) return;
+        if (copySync(text)) { say(strings.iosDone); return; } // le lien part ensuite et ouvre l'app
+        event.preventDefault();
+        manualCopyShown = true;
+        selectText(post);
+        say(strings.failed, true);
+      });
+    }
+
     var share = section.querySelector('[data-action="share"]');
     share.hidden = !canShare;
     share.addEventListener('click', function () {
