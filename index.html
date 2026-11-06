@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>AI Demo Days</title>
+<title>Partagez le moment, AI Demo Days</title>
 <meta name="description" content="AI Demo Days, Foyer Group. Partagez le moment sur LinkedIn.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#05112f">
@@ -51,16 +51,25 @@
   h1 {
     margin: 28px 0 0;
     font-family: "Space Grotesk", Inter, system-ui, sans-serif;
-    font-size: clamp(56px, 19.5vw, 112px);
+    font-size: clamp(48px, 16.5vw, 104px);
     font-weight: 700;
     line-height: .92;
     letter-spacing: -.045em;
     color: var(--white);
   }
   h1 span { display: block; }
-  h1 .days { color: var(--yellow); }
-  .when {
+  h1 span + span { color: var(--yellow); }
+  .event {
     margin: 16px 0 0;
+    font-family: "Space Grotesk", Inter, system-ui, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    color: var(--white);
+  }
+  .when {
+    margin: 4px 0 0;
     font-family: "Space Mono", ui-monospace, monospace;
     font-size: 13px;
     letter-spacing: .02em;
@@ -164,8 +173,8 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .road { animation: ride 900ms linear infinite; }
-    h1 span, .when, .art { animation: rise 620ms var(--ease) both; }
-    h1 .days { animation-delay: 70ms; }
+    h1 span, .event, .when, .art { animation: rise 620ms var(--ease) both; }
+    h1 span + span { animation-delay: 70ms; }
     .when { animation-delay: 130ms; }
     .art { animation: moon 900ms var(--ease) both; }
     @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
@@ -181,7 +190,8 @@
 <body>
 <header class="poster">
   <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 143 15" fill="currentColor" role="img" aria-label="Foyer Group"><title>Foyer Group</title><path d="M89.45 9.33H91.24V10.32C90.51 10.9 89.61 11.22 88.68 11.24C87.68 11.25 86.72 10.85 86.03 10.12C85.34 9.39 84.99 8.41 85.06 7.41C85 6.42 85.37 5.44 86.09 4.75C86.81 4.06 87.8 3.72 88.79 3.83C89.93 3.85 91.03 4.26 91.91 4.99L93.4 2.68C92.05 1.52 90.31 0.920003 88.54 1C86.79 0.940003 85.09 1.6 83.84 2.83C82.59 4.06 81.9 5.75 81.93 7.5C81.84 9.19 82.45 10.85 83.61 12.08C84.77 13.31 86.39 14.01 88.09 14.02C89.29 14.05 90.46 13.66 91.41 12.93V13.84H93.99V6.7H89.47V9.31L89.45 9.33Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M39.67 1C37.93 0.940003 36.24 1.6 34.99 2.81C33.74 4.03 33.05 5.7 33.06 7.45C33.06 11.1 36.02 14.06 39.67 14.06C43.32 14.06 46.28 11.1 46.28 7.45C46.3 5.71 45.6 4.03 44.35 2.81C43.1 1.6 41.41 0.950003 39.67 1ZM42.11 9.97C41.47 10.68 40.57 11.1 39.61 11.14C38.65 11.1 37.75 10.68 37.11 9.96C36.47 9.25 36.14 8.31 36.2 7.35C36.13 6.09 36.77 4.89 37.85 4.24C38.93 3.59 40.29 3.59 41.37 4.24C42.45 4.89 43.09 6.09 43.02 7.35C43.08 8.31 42.75 9.25 42.11 9.96V9.97Z"></path><path d="M27.66 13.86H24.58V1.22H32.32V3.87H27.66V6.52H31.51V9.17H27.66V13.86Z"></path><path d="M51.95 4.25C51.54 5.07 51.19 6.07 51.19 6.07C51.19 6.07 50.83 5.12 50.43 4.25L49 1.21H45.49L49.66 8.68V13.86H52.72V8.68L56.87 1.22H53.36L51.95 4.26V4.25Z"></path><path d="M64.92 8.82H61.07V11.2H66.14V13.86H58.02V1.22H65.96V3.87H61.07V6.17H64.92V8.82Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M74.95 8.63C76.16 7.91 76.89 6.59 76.85 5.18C76.96 3.58 76.01 2.09 74.52 1.51C73.73 1.25 72.89 1.15 72.06 1.21H67.66V13.86H70.76V9.6H72.21L74.45 13.86H77.87L75.43 9.39C75.29 9.13 75.13 8.87 74.95 8.63ZM73.27 6.55C72.96 6.85 72.53 7 72.1 6.95H70.76V3.87H71.8C73.35 3.87 73.71 4.4 73.71 5.39C73.75 5.82 73.59 6.25 73.27 6.55Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M105.2 5.18C105.24 6.59 104.51 7.91 103.3 8.63C103.48 8.87 103.64 9.13 103.78 9.39L106.24 13.81H102.8L100.56 9.55H99.11V13.81H96.01V1.21H100.41C101.24 1.15 102.08 1.25 102.87 1.51C104.36 2.09 105.31 3.58 105.2 5.18ZM100.44 6.95C100.87 7 101.3 6.85 101.61 6.55C101.93 6.25 102.08 5.82 102.05 5.39C102.05 4.4 101.69 3.87 100.14 3.87H99.1V6.95H100.44Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M113.06 1C111.32 0.940003 109.63 1.6 108.38 2.81C107.13 4.03 106.44 5.7 106.45 7.45C106.45 11.1 109.41 14.06 113.06 14.06C116.71 14.06 119.67 11.1 119.67 7.45C119.69 5.71 118.99 4.03 117.74 2.81C116.49 1.59 114.8 0.940003 113.06 1ZM115.54 10.02C114.9 10.73 114 11.15 113.04 11.19C112.08 11.15 111.18 10.73 110.54 10.01C109.9 9.29 109.57 8.36 109.63 7.4C109.56 6.14 110.2 4.94 111.28 4.29C112.36 3.64 113.72 3.64 114.8 4.29C115.88 4.94 116.52 6.14 116.45 7.4C116.51 8.36 116.18 9.3 115.54 10.01V10.02Z"></path><path d="M126.53 11.4C127.74 11.4 128.72 10.42 128.72 9.21V1.22H131.82V9.21C131.82 12.06 129.74 14.08 126.55 14.08C123.36 14.08 121.24 12.09 121.24 9.21V1.22H124.34V9.21C124.34 10.42 125.32 11.4 126.53 11.4Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M138.79 1.22H133.54V13.87H136.64V9.96H138.79C141.09 9.8 142.87 7.9 142.87 5.59C142.87 3.28 141.09 1.38 138.79 1.22ZM139.31 6.85C138.98 7.19 138.51 7.3 138.06 7.3H136.63V3.86H137.74C139.4 3.86 139.78 4.45 139.78 5.56C139.78 6.04 139.65 6.52 139.31 6.86V6.85Z"></path><path d="M5.06 6.08H16.43C16.51 6.56 16.56 7.04 16.56 7.53C16.56 8.02 16.52 8.51 16.43 8.99H3.42L5.06 6.08Z"></path><path d="M1.52 12.4C1.94 13.02 2.45 13.59 3.02 14.08H13.55C14.51 13.29 15.28 12.29 15.82 11.17H2.21L1.53 12.41L1.52 12.4Z"></path><path d="M13.55 1C14.4972 1.78765 15.2455 2.78405 15.7654 3.9H3.82L0.38 10.03C0.13 9.22 0 8.38 0 7.53C0 5.02 1.09 2.63 3 1H13.55Z"></path></svg>
-  <h1 aria-label="AI Demo Days"><span>AI Demo</span><span class="days">Days</span></h1>
+  <h1 id="title"><span id="title-1">Partagez</span><span id="title-2">le moment</span></h1>
+  <p class="event">AI Demo Days</p>
   <p class="when" id="when">9 et 10 novembre, chez Foyer Group</p>
 </header>
 <img class="art" src="hero.webp" alt="" width="930" height="1015" fetchpriority="high">
@@ -189,7 +199,7 @@
 
 <main id="shares">
   <section class="share" id="share-fr" lang="fr" data-lang="fr" aria-labelledby="title-fr">
-    <h2 id="title-fr">Partagez le moment</h2>
+    <h2 id="title-fr">En français</h2>
     <p class="lead">Un post LinkedIn s'ouvre avec le texte. Ajoutez votre photo, puis publiez.</p>
     <a class="cta" href="https://www.linkedin.com/shareArticle?mini=true&amp;text=Les%20AI%20Demo%20Days%20%3A%20Deux%20journ%C3%A9es%20pour%20explorer%20l%27IA%20autrement%20chez%20%40Foyer%20Group%20%F0%9F%92%A1%0ADes%20d%C3%A9mos%2C%20des%20d%C3%A9couvertes%2C%20des%20%C3%A9changes%20entre%20coll%C3%A8gues%20et%20surtout%20plein%20d%27id%C3%A9es%20sur%20ce%20que%20l%27intelligence%20artificielle%20peut%20apporter%20%C3%A0%20nos%20m%C3%A9tiers.%0AUne%20occasion%20de%20sortir%20du%20quotidien%2C%20de%20d%C3%A9couvrir%20ce%20qui%20se%20fait%20ailleurs%20dans%20le%20Groupe%20et%20de%20tester%20de%20nouvelles%20choses%20%21%0ABravo%20et%20merci%20%C3%A0%20toutes%20les%20%C3%A9quipes%20qui%20ont%20donn%C3%A9%20vie%20%C3%A0%20ces%20AI%20Demo%20Days.%20Une%20belle%20%C3%A9nergie%20collective.%0A%23AIDD26%20%23IntelligenceArtificielle%20%23PresentForTheFuture" >Partager sur LinkedIn</a>
     <div class="links">
@@ -206,7 +216,7 @@ Bravo et merci à toutes les équipes qui ont donné vie à ces AI Demo Days. Un
   </section>
 
   <section class="share" id="share-en" lang="en" data-lang="en" aria-labelledby="title-en">
-    <h2 id="title-en">Share the moment</h2>
+    <h2 id="title-en">In English</h2>
     <p class="lead">A LinkedIn post opens with the text. Add your photo, then publish.</p>
     <a class="cta" href="https://www.linkedin.com/shareArticle?mini=true&amp;text=AI%20Demo%20Days%3A%20Two%20days%20to%20explore%20AI%20in%20a%20different%20way%20at%20%40Foyer%20Group%20%F0%9F%92%A1%0ADemos%2C%20discoveries%2C%20conversations%20with%20colleagues%20and%2C%20above%20all%2C%20plenty%20of%20ideas%20about%20what%20artificial%20intelligence%20can%20bring%20to%20our%20day-to-day%20work.%0AA%20chance%20to%20step%20away%20from%20the%20daily%20routine%2C%20discover%20what%E2%80%99s%20happening%20across%20the%20Group%20and%20try%20out%20new%20things%21%0AA%20big%20thank%20you%20and%20well%20done%20to%20all%20the%20teams%20who%20brought%20these%20AI%20Demo%20Days%20to%20life.%20A%20great%20example%20of%20collective%20energy.%0A%23AIDD26%20%23ArtificialIntelligence%20%23PresentForTheFuture" >Share on LinkedIn</a>
     <div class="links">
@@ -252,6 +262,9 @@ A big thank you and well done to all the teams who brought these AI Demo Days to
   document.documentElement.lang = lang;
   document.getElementById('when').textContent = COPY[lang].when;
   if (lang === 'en') {
+    document.getElementById('title-1').textContent = 'Share';
+    document.getElementById('title-2').textContent = 'the moment';
+    document.title = 'Share the moment, AI Demo Days';
     var main = document.getElementById('shares');
     main.insertBefore(document.getElementById('share-en'), main.firstChild);
   }
