@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI Demo Days</title>
+<meta name="description" content="Partagez votre moment AI Demo Days sur LinkedIn.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#041d58">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 75 58'%3E%3Cpath fill='%2320439d' d='M71.4189 45.0732C69.0541 50.0814 65.6083 54.4808 61.3516 58H13.5811C11.0135 55.8343 8.78366 53.3304 6.82422 50.5557L9.93262 45.0732H71.4189ZM61.4189 0C65.6081 3.51925 69.0541 7.9186 71.4189 12.9268H17.2295L1.68945 40.0654C0.608369 36.5462 0 32.8235 0 28.9658C0.0001102 17.3254 5.33778 6.90308 13.6484 0H61.4189ZM74.3916 22.6045C74.7294 24.7025 75 26.8008 75 29.0342C75 31.1997 74.7294 33.3651 74.3916 35.4629H15.4727L22.9053 22.6045H74.3916Z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #041d58;
+    --primary: #2957c8;
+    --primary-hover: #20439d;
+    --primary-active: #173682;
+    --primary-100: #eaeefa;
+    --ink: #1a1d23;
+    --text: #3f485a;
+    --muted: #5d6b83;
+    --line: #e1e6ef;
+    --soft: #f8f9fc;
+    --done: #00856e;
+    --alert: #d04348;
+    --ease: cubic-bezier(.2, .8, .2, 1);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    color: var(--text);
+    font: 400 16px/1.5 Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  button, a { -webkit-tap-highlight-color: transparent; }
+  :focus-visible { outline: 3px solid #f5b614; outline-offset: 2px; }
+
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--navy);
+    color: #fff;
+    padding: max(8px, env(safe-area-inset-top)) 24px 24px;
+  }
+  .bands {
+    position: absolute;
+    right: -64px;
+    bottom: -32px;
+    width: 220px;
+    height: auto;
+    fill: var(--primary);
+  }
+  .topbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .logo { display: block; width: 96px; height: auto; fill: #fff; }
+  .langs { display: flex; margin-right: -8px; }
+  .langs button {
+    min-width: 44px;
+    min-height: 44px;
+    border: 0;
+    background: none;
+    color: #ced9f3;
+    font: 500 14px/1 inherit;
+    font-family: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 2px;
+  }
+  .langs button[aria-pressed="true"] { color: #fff; font-weight: 700; text-decoration: underline; }
+  h1 {
+    position: relative;
+    margin: 0;
+    white-space: nowrap;
+    font-size: clamp(38px, 12vw, 76px);
+    font-weight: 800;
+    line-height: .98;
+    letter-spacing: -.035em;
+  }
+  .when { position: relative; margin: 16px 0 0; font-size: 16px; font-weight: 500; }
+
+  main {
+    flex: 1;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 24px 16px;
+  }
+  .post {
+    margin: 0;
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+    white-space: pre-line;
+    -webkit-user-select: text;
+    user-select: text;
+    outline: 0;
+  }
+  .how { margin: 24px 0 0; color: var(--muted); font-size: 14px; }
+
+  .actions {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 12px 24px max(16px, env(safe-area-inset-bottom));
+    background: #fff;
+    border-top: 1px solid var(--line);
+  }
+  .status { margin: 0 0 8px; font-size: 14px; font-weight: 600; color: var(--done); }
+  .status:empty { display: none; }
+  .status.error { color: var(--alert); }
+  .cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 56px;
+    padding: 12px 16px;
+    border-radius: 4px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 120ms var(--ease), transform 120ms var(--ease);
+  }
+  .cta:hover { background: var(--primary-hover); }
+  .cta:active { background: var(--primary-active); transform: scale(.98); }
+  .copy-only {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    margin-top: 4px;
+    border: 0;
+    background: none;
+    color: var(--primary-hover);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 120ms var(--ease);
+  }
+  .copy-only:active { transform: scale(.98); }
+  .js-only { display: none; }
+  html.js .js-only { display: block; }
+  html.js .langs { display: flex; }
+  .langs { visibility: hidden; }
+  html.js .langs { visibility: visible; }
+
+  @media (min-width: 720px) {
+    .hero { padding-left: max(24px, calc(50vw - 296px)); padding-right: max(24px, calc(50vw - 296px)); }
+    .bands { right: 0; width: 380px; }
+    h1 { font-size: 88px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cta, .copy-only { transition: none; }
+    .cta:active, .copy-only:active { transform: none; }
+  }
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<header class="hero">
+  <svg class="bands" viewBox="0 0 75 58" aria-hidden="true"><path d="M71.4189 45.0732C69.0541 50.0814 65.6083 54.4808 61.3516 58H13.5811C11.0135 55.8343 8.78366 53.3304 6.82422 50.5557L9.93262 45.0732H71.4189ZM61.4189 0C65.6081 3.51925 69.0541 7.9186 71.4189 12.9268H17.2295L1.68945 40.0654C0.608369 36.5462 0 32.8235 0 28.9658C0.0001102 17.3254 5.33778 6.90308 13.6484 0H61.4189ZM74.3916 22.6045C74.7294 24.7025 75 26.8008 75 29.0342C75 31.1997 74.7294 33.3651 74.3916 35.4629H15.4727L22.9053 22.6045H74.3916Z"/></svg>
+  <div class="topbar">
+    <svg class="logo" viewBox="0 7 120 33" role="img" aria-label="Foyer"><g transform="translate(0 7)"><path d="M6.70928769,15.6032782 L31.7382331,15.6032782 C31.9060718,14.6478307 31.9936277,13.6802351 32,12.7104446 C31.9922988,11.744024 31.9047507,10.7798504 31.7382331,9.82758621 L9.86055877,9.82758621 L6.70928769,15.6032782 Z M29.7749811,19.2143327 L4.2929776,19.2143327 L3.03448276,21.6682536 C3.80701357,22.8935499 4.73778456,24.0136083 5.80317141,25 L25.6068462,25 C27.3936118,23.3891695 28.8143859,21.4204343 29.7749811,19.224308 L29.7749811,19.2143327 Z M7.36506435,6.37983598 L30.4672424,6.37983598 C29.4353003,4.28713914 27.9496994,2.4495087 26.1180063,1 L5.80817844,1 C0.802023839,4.97010952 -1.21781365,11.6162529 0.735743685,17.6905154 L7.36506435,6.37983598 Z"/><path d="M110.776007,8.84046871 C111.564657,7.90838325 113.260916,6.96014296 115.273907,6.94790444 L115.278802,6.94790444 C115.659665,6.94251949 115.975908,6.96748607 116.27257,7.00224346 C116.100741,7.54808131 115.249919,10.2532831 115.082497,10.7883511 C114.661002,10.6057524 114.208177,10.5181246 113.684858,10.5181246 C111.969507,10.5181246 110.234086,11.8007212 110.234086,14.2606631 L110.234086,25.1906379 L106.261953,25.1906379 L106.261953,7.25680461 L110.234086,7.25680461 L110.234086,9.48519378 L110.776007,8.84046871 Z M103.6504,17.3166208 L91.9836664,17.3166208 L91.9836664,17.6240524 C91.9836664,20.3326809 93.7034229,22.0818098 96.3714196,22.0818098 C98.4206368,22.0818098 99.4829401,21.5080681 100.594197,20.4487021 C100.924637,20.7762048 102.622854,22.427915 102.979729,22.7759785 C101.256546,24.4384586 99.5617562,25.4028538 96.3356831,25.4028538 C90.8180701,25.4028538 88.0218137,22.2976972 88.0218137,16.1603257 C88.0218137,10.477248 91.0163341,6.94765967 95.8343934,6.94765967 C100.581469,6.94765967 103.6504,10.3250008 103.6504,15.5474208 L103.6504,17.3166208 Z M91.9694698,14.7480009 L99.6993171,14.7480009 L99.6846309,14.4263726 C99.6498735,13.5652706 99.5367896,13.0336294 99.2362116,12.3169418 C98.6252648,10.9643409 97.3867269,10.1982098 95.8343934,10.1982098 C94.2820599,10.1982098 93.0449906,10.9682573 92.4418765,12.3110674 C92.1368927,13.0336294 92.0223402,13.5633124 91.9836664,14.4263726 L91.9694698,14.7480009 Z M87.8417117,7.25714729 C87.5465187,8.05167181 80.0168935,28.3940452 80.0154249,28.4013883 C79.6071479,29.4725033 79.1978919,30.1715674 78.6926859,30.6767734 C77.7816507,31.5824237 76.5426233,32.0166462 74.9007038,31.9995123 L73.3841068,31.9995123 L73.3841068,28.4591541 L74.1482798,28.4591541 C75.6418684,28.4591541 76.2777818,28.0038813 76.7668329,26.5793179 L77.5892613,24.1942757 C77.5892613,24.1942757 71.6256767,8.0443287 71.3344,7.25714729 L75.34178,7.25714729 C75.486684,7.64339488 79.6654033,19.1407473 79.6654033,19.1407473 C79.6654033,19.1407473 83.6747414,7.65416478 83.8162187,7.25714729 L87.8417117,7.25714729 Z M68.6788376,9.13903957 C70.3736274,10.9097082 70.7040674,13.0563441 70.7040674,16.1605215 C70.7040674,19.8027042 70.175853,21.6497412 68.6788376,23.2113759 C67.9092797,24.030867 66.1577031,25.4030496 63.1049274,25.4030496 C60.2376877,25.4030496 58.5110777,24.2124866 57.5662642,23.2113759 C56.0712069,21.6497412 55.5395658,19.8027042 55.5395658,16.1605215 C55.5395658,12.5393891 56.0712069,10.6996953 57.5662642,9.14246635 C58.5110777,8.1393975 60.2362191,6.94785549 63.1049274,6.94785549 C66.1611299,6.94785549 67.9092797,8.32150663 68.6788376,9.13903957 Z M65.5080826,20.9217942 C66.5811558,19.8433361 66.6697627,18.0545544 66.6697627,16.1605215 C66.6697627,14.2836226 66.5811558,12.5061004 65.5080826,11.4291109 C64.9005626,10.8255072 64.0918414,10.5180757 63.1049274,10.5180757 C62.124867,10.5180757 61.355309,10.8181641 60.7424041,11.4291109 C59.663946,12.5061004 59.5758287,14.2836226 59.5758287,16.1605215 C59.5758287,18.0545544 59.663946,19.8433361 60.7424041,20.9217942 C61.355309,21.5346991 62.1287833,21.8328294 63.1049274,21.8328294 C64.0918414,21.8328294 64.8986045,21.5283351 65.5080826,20.9217942 Z M56.302417,0.293577982 L56.302417,4.14968992 L47.1019895,4.14968992 L47.1019895,10.8642299 L53.2055827,10.8642299 L53.2055827,14.7178941 L47.1019895,14.7178941 L47.1019895,25.1906379 L42.7431193,25.1906379 L42.7431193,0.293577982 L56.302417,0.293577982 Z"/></g></svg>
+    <div class="langs" role="group" aria-label="Langue / Language">
+      <button type="button" data-lang="fr" aria-pressed="true" lang="fr">FR</button>
+      <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
+    </div>
+  </div>
+  <h1>AI Demo Days</h1>
+  <p class="when" id="when">9 et 10 novembre, chez Foyer</p>
+</header>
+
+<main>
+  <p class="post" id="post-fr" lang="fr" tabindex="-1">Les AI Demo Days : Deux journées pour explorer l'IA autrement chez @Foyer Group 💡
+Des démos, des découvertes, des échanges entre collègues et surtout plein d'idées sur ce que l'intelligence artificielle peut apporter à nos métiers.
+Une occasion de sortir du quotidien, de découvrir ce qui se fait ailleurs dans le Groupe et de tester de nouvelles choses !
+Bravo et merci à toutes les équipes qui ont donné vie à ces AI Demo Days. Une belle énergie collective.
+#AIDD26 #IntelligenceArtificielle #PresentForTheFuture</p>
+  <p class="post" id="post-en" lang="en" tabindex="-1">AI Demo Days: Two days to explore AI in a different way at @Foyer Group 💡
+Demos, discoveries, conversations with colleagues and, above all, plenty of ideas about what artificial intelligence can bring to our day-to-day work.
+A chance to step away from the daily routine, discover what’s happening across the Group and try out new things!
+A big thank you and well done to all the teams who brought these AI Demo Days to life. A great example of collective energy.
+#AIDD26 #ArtificialIntelligence #PresentForTheFuture</p>
+  <p class="how" id="how">Le bouton copie ce texte et ouvre LinkedIn. Collez-le dans un nouveau post, ajoutez votre photo, retapez @Foyer Group pour activer la mention, puis publiez.</p>
+</main>
+
+<div class="actions">
+  <p class="status" id="status" role="status" aria-live="polite"></p>
+  <a class="cta" id="cta" href="https://www.linkedin.com/feed/?shareActive=true">Copier et ouvrir LinkedIn</a>
+  <button class="copy-only js-only" id="copy-only" type="button">Copier seulement</button>
+</div>
+
+<script>
+(function () {
+  var STRINGS = {
+    fr: {
+      when: '9 et 10 novembre, chez Foyer',
+      how: 'Le bouton copie ce texte et ouvre LinkedIn. Collez-le dans un nouveau post, ajoutez votre photo, retapez @Foyer Group pour activer la mention, puis publiez.',
+      cta: 'Copier et ouvrir LinkedIn',
+      copyOnly: 'Copier seulement',
+      copied: 'Texte copié. Collez-le dans votre post LinkedIn.',
+      failed: 'Copie automatique bloquée par ce navigateur. Le texte est sélectionné : copiez-le, puis touchez à nouveau le bouton.',
+      title: 'AI Demo Days'
+    },
+    en: {
+      when: '9 and 10 November, at Foyer',
+      how: 'The button copies this text and opens LinkedIn. Paste it into a new post, add your photo, retype @Foyer Group to activate the mention, then publish.',
+      cta: 'Copy and open LinkedIn',
+      copyOnly: 'Copy only',
+      copied: 'Text copied. Paste it into your LinkedIn post.',
+      failed: 'This browser blocked automatic copying. The text is selected: copy it, then tap the button again.',
+      title: 'AI Demo Days'
+    }
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var statusEl = $('status');
+  var cta = $('cta');
+  var lang = 'fr';
+  var manualFallbackShown = false;
+
+  function detectLang() {
+    var forced = new URLSearchParams(location.search).get('lang');
+    if (forced === 'fr' || forced === 'en') return forced;
+    try {
+      var saved = localStorage.getItem('aidd-lang');
+      if (saved === 'fr' || saved === 'en') return saved;
+    } catch (e) { /* stockage bloqué : la langue du téléphone suffit */ }
+    var first = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+    return first.toLowerCase().indexOf('fr') === 0 ? 'fr' : 'en';
+  }
+
+  function setStatus(message, isError) {
+    statusEl.textContent = message;
+    statusEl.classList.toggle('error', Boolean(isError));
+  }
+
+  function applyLang(next) {
+    lang = next;
+    var s = STRINGS[lang];
+    document.documentElement.lang = lang;
+    $('post-fr').hidden = lang !== 'fr';
+    $('post-en').hidden = lang !== 'en';
+    $('when').textContent = s.when;
+    $('how').textContent = s.how;
+    cta.textContent = s.cta;
+    $('copy-only').textContent = s.copyOnly;
+    document.querySelectorAll('[data-lang]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
+    });
+    setStatus('');
+    manualFallbackShown = false;
+  }
+
+  function currentText() {
+    return $('post-' + lang).textContent.trim();
+  }
+
+  // Synchrone, donc le résultat est connu avant de quitter la page vers LinkedIn.
+  // navigator.clipboard est asynchrone : l'app LinkedIn peut prendre le focus avant la fin.
+  function copySync(text) {
+    var area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;font-size:16px';
+    document.body.appendChild(area);
+    area.focus({ preventScroll: true });
+    area.select();
+    area.setSelectionRange(0, text.length);
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(area);
+    return ok;
+  }
+
+  function selectPost() {
+    var el = $('post-' + lang);
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    var selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+  }
+
+  function copyAsync(text) {
+    if (!navigator.clipboard || !navigator.clipboard.writeText) return Promise.reject(new Error('unavailable'));
+    return navigator.clipboard.writeText(text);
+  }
+
+  function showManualFallback() {
+    selectPost();
+    setStatus(STRINGS[lang].failed, true);
+    manualFallbackShown = true;
+  }
+
+  cta.addEventListener('click', function (event) {
+    // Après l'échec de la copie, le second appui ouvre LinkedIn sans rien bloquer.
+    if (manualFallbackShown) return;
+    var text = currentText();
+    if (copySync(text)) {
+      setStatus(STRINGS[lang].copied);
+      return; // le lien natif part : c'est lui qui ouvre l'app LinkedIn sur iOS et Android
+    }
+    event.preventDefault();
+    copyAsync(text).then(function () {
+      setStatus(STRINGS[lang].copied);
+      location.href = cta.href;
+    }).catch(showManualFallback);
+  });
+
+  $('copy-only').addEventListener('click', function () {
+    var text = currentText();
+    if (copySync(text)) { setStatus(STRINGS[lang].copied); return; }
+    copyAsync(text).then(function () {
+      setStatus(STRINGS[lang].copied);
+    }).catch(showManualFallback);
+  });
+
+  document.querySelectorAll('[data-lang]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      applyLang(button.dataset.lang);
+      try { localStorage.setItem('aidd-lang', lang); } catch (e) { /* sans importance */ }
+    });
+  });
+
+  applyLang(detectLang());
+})();
+</script>
+</body>
+</html>
