@@ -71,7 +71,7 @@
     display: block;
     width: 100%;
     max-width: 640px;
-    height: clamp(280px, 48vh, 460px);
+    height: clamp(220px, 38svh, 420px);
     margin: -8px auto 0;
     object-fit: cover;
     object-position: 50% 80%;
@@ -123,8 +123,10 @@
   }
   .cta:hover { background: #ffe040; }
   .cta:active { background: var(--yellow-press); transform: scale(.97); }
-  .links { display: grid; grid-template-columns: 1fr 1fr; margin-top: 4px; }
-  .links a, .links button {
+  .lead { margin: 0 0 12px; color: var(--mist); font-size: 15px; }
+  .links { display: flex; justify-content: center; gap: 16px; margin-top: 4px; }
+  .links button[hidden] { display: none; }
+  .links button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -143,7 +145,7 @@
     cursor: pointer;
     transition: transform 140ms var(--ease);
   }
-  .links a:active, .links button:active { transform: scale(.97); }
+  .links button:active { transform: scale(.97); }
   .status { margin: 8px 0 0; font-size: 15px; font-weight: 600; color: var(--yellow); }
   .status:empty { display: none; }
   .status.error { color: var(--error); }
@@ -171,8 +173,8 @@
     @keyframes ride { to { background-position: -56px 0; } }
   }
   @media (prefers-reduced-motion: reduce) {
-    .cta, .links a, .links button { transition: none; }
-    .cta:active, .links a:active, .links button:active { transform: none; }
+    .cta, .links button { transition: none; }
+    .cta:active, .links button:active { transform: none; }
   }
 </style>
 </head>
@@ -188,10 +190,11 @@
 <main id="shares">
   <section class="share" id="share-fr" lang="fr" data-lang="fr" aria-labelledby="title-fr">
     <h2 id="title-fr">Partagez le moment</h2>
-    <a class="cta" href="https://www.linkedin.com/feed/?shareActive=true" data-action="share">Partager sur LinkedIn</a>
+    <p class="lead">Le texte est copié, puis LinkedIn s'ouvre. Créez un post et collez.</p>
+    <a class="cta" href="https://www.linkedin.com/feed/?shareActive=true" data-action="open">Copier et ouvrir LinkedIn</a>
     <div class="links">
       <button type="button" data-action="copy">Copier le texte</button>
-      <a href="https://www.linkedin.com/feed/?shareActive=true" data-action="open">Ouvrir LinkedIn</a>
+      <button type="button" data-action="share" hidden>Menu de partage</button>
     </div>
     <p class="status" role="status" aria-live="polite"></p>
     <p class="post">Les AI Demo Days : Deux journées pour explorer l'IA autrement chez @Foyer Group 💡
@@ -204,10 +207,11 @@ Bravo et merci à toutes les équipes qui ont donné vie à ces AI Demo Days. Un
 
   <section class="share" id="share-en" lang="en" data-lang="en" aria-labelledby="title-en">
     <h2 id="title-en">Share the moment</h2>
-    <a class="cta" href="https://www.linkedin.com/feed/?shareActive=true" data-action="share">Share on LinkedIn</a>
+    <p class="lead">The text gets copied, then LinkedIn opens. Start a post and paste.</p>
+    <a class="cta" href="https://www.linkedin.com/feed/?shareActive=true" data-action="open">Copy and open LinkedIn</a>
     <div class="links">
       <button type="button" data-action="copy">Copy the text</button>
-      <a href="https://www.linkedin.com/feed/?shareActive=true" data-action="open">Open LinkedIn</a>
+      <button type="button" data-action="share" hidden>Share menu</button>
     </div>
     <p class="status" role="status" aria-live="polite"></p>
     <p class="post">AI Demo Days: Two days to explore AI in a different way at @Foyer Group 💡
@@ -226,15 +230,15 @@ A big thank you and well done to all the teams who brought these AI Demo Days to
       when: '9 et 10 novembre, chez Foyer Group',
       copied: 'Texte copié.',
       shared: 'Texte copié. Choisissez LinkedIn. Si le post est vide, collez le texte.',
-      opened: 'Texte copié. Dans LinkedIn, touchez Publier, puis collez.',
-      failed: "Copie bloquée par ce navigateur. Sélectionnez le texte ci-dessous, puis copiez-le."
+      opened: 'Texte copié. Dans LinkedIn, créez un post et collez.',
+      failed: 'Copie bloquée par ce navigateur. Le texte est sélectionné : copiez-le, puis touchez à nouveau le bouton.'
     },
     en: {
       when: '9 and 10 November, at Foyer Group',
       copied: 'Text copied.',
       shared: 'Text copied. Choose LinkedIn. If the post is empty, paste the text.',
-      opened: 'Text copied. In LinkedIn, tap Post, then paste.',
-      failed: 'This browser blocked copying. Select the text below, then copy it.'
+      opened: 'Text copied. In LinkedIn, start a post and paste.',
+      failed: 'This browser blocked copying. The text is selected: copy it, then tap the button again.'
     }
   };
 
@@ -278,8 +282,7 @@ A big thank you and well done to all the teams who brought these AI Demo Days to
     selection.addRange(range);
   }
 
-  // Aucun lien documenté n'ouvre la rédaction de l'app LinkedIn avec le texte :
-  // sur téléphone, le menu de partage natif est donc le chemin principal.
+  // Le chemin principal copie puis ouvre LinkedIn. Le menu de partage natif reste une option sur téléphone.
   var canShare = typeof navigator.share === 'function' && matchMedia('(pointer: coarse)').matches;
 
   document.querySelectorAll('.share').forEach(function (section) {
@@ -308,17 +311,31 @@ A big thank you and well done to all the teams who brought these AI Demo Days to
     section.querySelector('[data-action="copy"]').addEventListener('click', function () {
       copied(strings.copied);
     });
-    section.querySelector('[data-action="open"]').addEventListener('click', function () {
-      copied(strings.opened); // le lien natif part ensuite, c'est lui qui ouvre l'app
-    });
-    section.querySelector('[data-action="share"]').addEventListener('click', function (event) {
-      if (!canShare) { copied(strings.opened); return; }
+    var open = section.querySelector('[data-action="open"]');
+    var manualCopyShown = false;
+    open.addEventListener('click', function (event) {
+      if (manualCopyShown) return; // second appui après une copie à la main : on laisse partir vers LinkedIn
+      if (copySync(text)) { say(strings.opened); return; } // le lien natif part : c'est lui qui ouvre l'app
       event.preventDefault();
+      var href = open.href;
+      function showManualCopy() {
+        selectText(post);
+        say(strings.failed, true);
+        manualCopyShown = true;
+      }
+      if (!navigator.clipboard || !navigator.clipboard.writeText) { showManualCopy(); return; }
+      navigator.clipboard.writeText(text).then(function () {
+        say(strings.opened);
+        location.href = href;
+      }, showManualCopy);
+    });
+
+    var share = section.querySelector('[data-action="share"]');
+    share.hidden = !canShare;
+    share.addEventListener('click', function () {
       copied(strings.shared);
       navigator.share({ text: text }).catch(function (error) {
-        if (error && error.name === 'AbortError') return; // la personne a fermé le menu
-        say(strings.opened);
-        location.href = event.currentTarget ? event.currentTarget.href : 'https://www.linkedin.com/feed/?shareActive=true';
+        if (error && error.name !== 'AbortError') say(strings.opened);
       });
     });
   });
